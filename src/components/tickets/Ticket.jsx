@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react"
-import { getAllEmployees } from "../../services/employeeService"
+
+
 export const Ticket = ({ ticket, name, hungry }) => {
-    const [employees, setEmployees] = useState([])
-    const [assignedEmployee, setAssignedEmployee] = useState({})
+    // const [employees, setEmployees] = useState([])
+    // const [assignedEmployee, setAssignedEmployee] = useState({})
 
-    useEffect(() => {
-        getAllEmployees().then(employeesArray => {
-            setEmployees(employeesArray)
-            console.log("life is weird")
-    }) 
-    }, [])
+    // useEffect(() => {
+    //     getAllEmployees().then(employeesArray => {
+    //         setEmployees(employeesArray)
+    //         console.log("life is weird")
+    // }) 
+    // }, [])
 
-    useEffect(() => {
-        const foundEmployee = employees.find(employee => employee.id === ticket.employeeTickets[0]?.employeeId
+    // useEffect(() => {
+    //     const foundEmployee = employees.find(employee => employee.id === ticket.employeeTickets[0]?.employeeId
 
-        )
-        setAssignedEmployee(foundEmployee)
-    }, [employees, ticket])
+    //     )
+    //     setAssignedEmployee(foundEmployee)
+    // }, [employees, ticket])
     return (
             <section className="ticket" >
                 <header className="ticket-info"> #{ticket.id} </header>
@@ -28,7 +29,7 @@ export const Ticket = ({ ticket, name, hungry }) => {
                 <div> {ticket.emergency ? "yes" :" no"} </div>
                 <div >
                 <div className="ticket-info"> employee </div>
-                <div> {assignedEmployee ? assignedEmployee.user?.fullName : "none" } </div>
+                {/* <div> {assignedEmployee ? assignedEmployee.user?.fullName : "none" } </div> */}
                 <div> & {name} {hungry} </div>
                 </div>
                 </div>

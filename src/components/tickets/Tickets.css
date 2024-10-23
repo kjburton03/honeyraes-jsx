@@ -56,3 +56,7 @@
   .filter-btn {
     margin-right: 2rem;
   }
+  .btn-container {
+    display: flex;
+    justify-content: flex-end;
+  }
