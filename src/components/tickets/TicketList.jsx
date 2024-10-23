@@ -10,6 +10,7 @@ const [allTickets, setAllTickets] = useState([])
 const [showEmergencyOnly, setShowEmergencyOnly] = useState(false)
 const [filteredTickets, setFilteredTickets] = useState([])
 const [searchTerm, setSearchTerm] = useState("")
+const [showNonEmergencyOnly, setShowNonEmergencyOnly] = useState(true)
 
 
   // function is what we want to happen array is when we want it to happen to
@@ -26,10 +27,13 @@ useEffect(() => {
         (ticket) => ticket.emergency === true
       )
       setFilteredTickets(emergencyTickets)
+      console.log("lesgo")
     } else {
       setFilteredTickets(allTickets)
-    }
-  }, [showEmergencyOnly, allTickets])
+      console.log("I thought you were working")
+    } 
+
+  }, [showEmergencyOnly, showNonEmergencyOnly, allTickets])
 
   useEffect(() => {
     const foundTickets = allTickets.filter((ticket) => 
@@ -43,7 +47,7 @@ useEffect(() => {
   return <div className="tickets-container">
     <h2> Tickets </h2>
 
-    <TicketSearch setSearchTerm={setSearchTerm} setShowEmergencyOnly={setShowEmergencyOnly}/>
+    <TicketSearch setSearchTerm={setSearchTerm} setShowEmergencyOnly={setShowEmergencyOnly} setShowNonEmergencyOnly={setShowNonEmergencyOnly}/>
     <article className="tickets" >
         {filteredTickets.map((ticketObj) => {
             return   <Ticket ticket={ticketObj} name="joe" penis="peness" hungry="taco" key={ticketObj.id} />
