@@ -77,12 +77,16 @@ button {
   background-color: #e5a000;
 }
 
-.btn-secondary {
+/* .btn-secondary {
   background-color: var(--secondary);
+} */
+
+.btn-secondary {
+  background-color: #71a500;
 }
 
 .btn-secondary:hover {
-  background-color: #0097d7;
+  background-color: #3318cf;
 }
 
 .btn-warning {

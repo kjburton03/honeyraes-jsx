@@ -6,3 +6,16 @@ the filteredTickets.map on ticketList.jsx,was rendering the data onto the web to
  to put <Tickets ticket={ticketobj} />
 
  In order to access that id in the CustomerDetails component, we utilize the useParams() hook from react-router-dom. ****
+
+
+routes to the same json file must be held under the same service 
+
+
+assignTicket function at ticketService.jsx , forgot to add employeeTickets to the () in assignTicket function kept getting errors that the employeeTickets were undefined 
+
+  useEffect(() => {
+    const foundTickets = allTickets.filter((ticket) => 
+      ticket.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    setFilteredTickets(foundTickets)
+  }, [searchTerm, allTickets])

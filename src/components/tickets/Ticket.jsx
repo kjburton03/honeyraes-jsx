@@ -1,23 +1,54 @@
 import { useState, useEffect } from "react"
+import { getAllEmployees } from "../../services/employeeService"
+import "./Tickets.css"
+import { assignTicket, updateTicket } from "../../services/ticketService"
 
+export const Ticket = ({ ticket, name, hungry, currentUser, getAndSetTickets }) => {
+    const [employees, setEmployees] = useState([])
+    const [assignedEmployee, setAssignedEmployee] = useState({})
 
-export const Ticket = ({ ticket, name, hungry }) => {
-    // const [employees, setEmployees] = useState([])
-    // const [assignedEmployee, setAssignedEmployee] = useState({})
+    useEffect(() => {
+        getAllEmployees().then((employeesArray) => {
+            setEmployees(employeesArray)
+    }) 
+    }, [])
 
-    // useEffect(() => {
-    //     getAllEmployees().then(employeesArray => {
-    //         setEmployees(employeesArray)
-    //         console.log("life is weird")
-    // }) 
-    // }, [])
+    useEffect(() => {
+        const foundEmployee = employees.find(
+            (employee) => employee.id === ticket.employeeTickets[0]?.employeeId
 
-    // useEffect(() => {
-    //     const foundEmployee = employees.find(employee => employee.id === ticket.employeeTickets[0]?.employeeId
+        )
+        setAssignedEmployee(foundEmployee)
+    }, [employees, ticket])
+    
+    const handleClaim = () => {
+        const currentEmployee = employees.find(
+            (employee) => employee.userId === currentUser.id
+        )
 
-    //     )
-    //     setAssignedEmployee(foundEmployee)
-    // }, [employees, ticket])
+        const newEmployeeTicket = {
+            employeeId: currentEmployee.id,
+            serviceTicketId: ticket.id,
+        }
+    
+
+        assignTicket(newEmployeeTicket).then(() => {
+            getAndSetTickets()
+        })
+    }
+    const handleClose = () => {
+        const closedTicket = {
+            id: ticket.id,
+            userId: ticket.userId,
+            description: ticket.description,
+            emergency: ticket.emergency,
+            dateCompleted: new Date(),
+        }
+
+        updateTicket(closedTicket).then(() => {
+            getAndSetTickets()
+        })
+    }
     return (
             <section className="ticket" >
                 <header className="ticket-info"> #{ticket.id} </header>
@@ -29,9 +60,31 @@ export const Ticket = ({ ticket, name, hungry }) => {
                 <div> {ticket.emergency ? "yes" :" no"} </div>
                 <div >
                 <div className="ticket-info"> employee </div>
-                {/* <div> {assignedEmployee ? assignedEmployee.user?.fullName : "none" } </div> */}
+                <div>
+                    {assignedEmployee ? assignedEmployee.user?.fullName : "none"}
+                </div>
                 <div> & {name} {hungry} </div>
                 </div>
+                <div className="btn-container">
+                      {/* IF LOGGED in user is an employee and ticket is unassigned, show button to claim here */}
+                    {currentUser.isStaff && !assignedEmployee ? (
+                        <button className="btn btn-secondary" onClick={handleClaim}>
+                            Claim
+                        </button>
+                    ) : (
+                        ""
+                    )}
+                    {/* if the logged in user is the assigned employee for the ticket, show button to close tiket here */}
+                    {assignedEmployee?.userId === currentUser.id && 
+                    !ticket.dateCompleted ?(
+                        <button className="btn btn-warning" onClick={handleClose}>Close</button>
+                    ) : (
+                        ""
+                    )}
+                
+                </div>
+                
+
                 </div>
 
             </footer>

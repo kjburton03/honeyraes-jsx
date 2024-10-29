@@ -13,6 +13,7 @@ export const CustomerDetails = () => {
             setCustomer(customerObj)
         })
     }, [customerId])
+    
     return <section className="customer">
         <header className="customer-header">{customer.user?.fullName}</header>
         <div>
