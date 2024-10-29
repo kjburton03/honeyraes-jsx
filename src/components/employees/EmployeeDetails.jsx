@@ -26,6 +26,16 @@ export const EmployeeDetails = () => {
         <div>
             <span className="employee-info"> Specialty: {employee.specialty} </span>
         </div>
+        <div>
+        <span className="employee-info">Tickets: </span>
+        {employee.employeeTickets?.length === 1
+          ? `${employee.user?.fullName.split(" ")[0]} is working on ${
+              employee.employeeTickets?.length
+            } ticket.`
+          : `${employee.user?.fullName.split(" ")[0]} is working on ${
+              employee.employeeTickets?.length
+            } tickets.`}
+      </div>
 
     </section>
 }

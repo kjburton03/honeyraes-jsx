@@ -1,4 +1,4 @@
-export const TicketSearch = ({setSearchTerm, setShowEmergencyOnly, setShowNonEmergencyOnly}) => {
+export const TicketSearch = ({setSearchTerm, setShowEmergencyOnly }) => {
 
     return <>
     <div className="filter-bar">

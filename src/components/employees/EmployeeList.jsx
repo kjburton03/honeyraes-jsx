@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react"
-
-
-import "./Employees.css"
-import { User } from "../../users/User"
-import { getAllEmployees } from "../../services/employeesService"
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+import "./Employees.css";
+import { User } from "../../users/User";
+import { Link } from "react-router-dom";
+import { getStaff } from "../../services/userService";
 
 export const EmployeeList = () => {
     const [employees, setEmployees] = useState([])
 
     useEffect( () => {
-        getAllEmployees().then((employeeArray) => {
+        getStaff().then((employeeArray) => {
             setEmployees(employeeArray)
         })
     }, [])

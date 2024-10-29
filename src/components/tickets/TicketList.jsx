@@ -5,14 +5,21 @@ import { Ticket } from "./Ticket"
 import { Pointless } from "./Testie"
 import { TicketSearch } from "./TicketSearch"
 
-export const TicketList = () => {
+export const TicketList = ({currentUser}) => {
 const [allTickets, setAllTickets] = useState([])
 const [showEmergencyOnly, setShowEmergencyOnly] = useState(false)
 const [filteredTickets, setFilteredTickets] = useState([])
-const [searchTerm, setSearchTerm] = useState("")
-const [showNonEmergencyOnly, setShowNonEmergencyOnly] = useState(true)
+// const [searchTerm, setSearchTerm] = useState("")
 
+const getAndSetTickets = () => {
+  getAllTickets().then((ticketsArr) => {
+    setAllTickets(ticketsArr)
+  })
+}
 
+useEffect(() => {
+  getAndSetTickets()
+}, [])
   // function is what we want to happen array is when we want it to happen to
 useEffect(() => {
  getAllTickets().then(ticketsArr => {
@@ -33,25 +40,38 @@ useEffect(() => {
       console.log("I thought you were working")
     } 
 
-  }, [showEmergencyOnly, showNonEmergencyOnly, allTickets])
+  }, [showEmergencyOnly, allTickets])
 
-  useEffect(() => {
-    const foundTickets = allTickets.filter((ticket) => 
-      ticket.description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    setFilteredTickets(foundTickets)
-  }, [searchTerm, allTickets])
+// useEffect(() => {
+//   const foundTickets = allTickets.filter((ticket) =>
+//   ticket.description.toLowerCase().includes(searchTerm.toLowerCase())
+// )
+// setFilteredTickets(foundTickets)
+// }, [searchTerm, allTickets])
 
 
 
   return <div className="tickets-container">
     <h2> Tickets </h2>
 
-    <TicketSearch setSearchTerm={setSearchTerm} setShowEmergencyOnly={setShowEmergencyOnly} setShowNonEmergencyOnly={setShowNonEmergencyOnly}/>
+    <TicketSearch 
+    setShowEmergencyOnly={setShowEmergencyOnly}
+    // setSearchTerm={setSearchTerm} 
+
+    />
     <article className="tickets" >
         {filteredTickets.map((ticketObj) => {
-            return   <Ticket ticket={ticketObj} name="joe" penis="peness" hungry="taco" key={ticketObj.id} />
-            
+            return   (
+              <Ticket 
+                ticket={ticketObj} 
+                name="joe" penis="peness" hungry="taco" 
+                currentUser={currentUser}
+                getAndSetTickets={getAndSetTickets}
+                key={ticketObj.id} 
+
+
+              />
+            )
         })}
         </article>
 
