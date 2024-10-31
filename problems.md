@@ -19,3 +19,8 @@ assignTicket function at ticketService.jsx , forgot to add employeeTickets to th
     )
     setFilteredTickets(foundTickets)
   }, [searchTerm, allTickets])
+
+
+customer navbar wasnt showing up, went to customer views to realize the outlet/customer route was not wrapping the rest of the routes 
+
+event was slashed out in ticketForm.jsx because useState() wasn't automatically imported
